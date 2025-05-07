@@ -16,3 +16,16 @@ class QuizAdmin(admin.ModelAdmin):
     list_display = ['title', 'created_at']
     search_fields = ['title', 'description']
     inlines = [QuestionInline]
+
+@admin.register(Question)
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ['text', 'quiz']
+    list_filter = ['quiz']
+    search_fields = ['text']
+    inlines = [ChoiceInline]
+
+@admin.register(Choice)
+class ChoiceAdmin(admin.ModelAdmin):
+    list_display = ['text', 'question', 'is_correct']
+    list_filter = ['question', 'is_correct']
+    search_fields = ['text']
