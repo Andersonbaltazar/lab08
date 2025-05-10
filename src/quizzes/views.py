@@ -71,3 +71,13 @@ class QuizViewSet(viewsets.ModelViewSet):
             'percentage': int((correct_answers / total_answers) * 100) if total_answers else 0,
             'results': results
         })
+    
+    class QuestionViewSet(viewsets.ModelViewSet):
+        """ViewSet for Question model"""
+        queryset = Question.objects.all()
+        
+        def get_serializer_class(self):
+            if self.action == 'retrieve':
+                return QuestionDetailSerializer
+            return QuestionSerializer
+
