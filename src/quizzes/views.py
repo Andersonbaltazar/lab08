@@ -80,4 +80,9 @@ class QuizViewSet(viewsets.ModelViewSet):
             if self.action == 'retrieve':
                 return QuestionDetailSerializer
             return QuestionSerializer
+        
+    class ChoiceViewSet(viewsets.ModelViewSet):
+        """ViewSet for Choice model"""
+        queryset = Choice.objects.all()
+        serializer_class = ChoiceSerializer
 
