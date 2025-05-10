@@ -1,9 +1,8 @@
 from django.shortcuts import render
 
 from rest_framework import viewsets, status
-from rest_framework import action
-from rest_framework import Response
-
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from .models import Quiz, Question, Choice
 
 from .serializers import (
@@ -72,17 +71,17 @@ class QuizViewSet(viewsets.ModelViewSet):
             'results': results
         })
     
-    class QuestionViewSet(viewsets.ModelViewSet):
-        """ViewSet for Question model"""
-        queryset = Question.objects.all()
+class QuestionViewSet(viewsets.ModelViewSet):
+    """ViewSet for Question model"""
+    queryset = Question.objects.all()
         
-        def get_serializer_class(self):
-            if self.action == 'retrieve':
-                return QuestionDetailSerializer
-            return QuestionSerializer
+    def get_serializer_class(self):
+        if self.action == 'retrieve':
+            return QuestionDetailSerializer
+        return QuestionSerializer
         
-    class ChoiceViewSet(viewsets.ModelViewSet):
-        """ViewSet for Choice model"""
-        queryset = Choice.objects.all()
-        serializer_class = ChoiceSerializer
+class ChoiceViewSet(viewsets.ModelViewSet):
+    """ViewSet for Choice model"""
+    queryset = Choice.objects.all()
+    serializer_class = ChoiceSerializer
 
