@@ -38,30 +38,17 @@ class QuizSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Quiz
-<<<<<<< HEAD
-        fields = ['id', 'title', 'description', 'category', 'category_id', 'tags', 'tag_ids', 'created_at']
-=======
-        fields = ['id', 'title', 'description', 'created_at', ''] # Añadimos 'duration'
->>>>>>> 977178c5200dbd0e98256bf961498dd3c2ec5462
+        fields = ['id', 'title', 'description', 'category', 'category_id', 'tags', 'tag_ids', 'duration', 'created_at']
 
 
 class QuizDetailSerializer(serializers.ModelSerializer):
-    questions = serializers.SerializerMethodField()
-<<<<<<< HEAD
     category = CategorySerializer(read_only=True)
     tags = TagSerializer(many=True, read_only=True)
 
     class Meta:
         model = Quiz
-        fields = ['id', 'title', 'description', 'created_at', 'category', 'tags', 'questions']
-    
-=======
+        fields = ['id', 'title', 'description', 'duration', 'created_at', 'category', 'tags', 'questions']
 
-    class Meta:
-        model = Quiz
-        fields = ['id', 'title', 'description', 'created_at', 'duration', 'questions'] # Añadimos 'duration'
-
->>>>>>> 977178c5200dbd0e98256bf961498dd3c2ec5462
     def get_questions(self, obj):
         questions = obj.questions.all()
         return QuestionDetailSerializer(questions, many=True).data
