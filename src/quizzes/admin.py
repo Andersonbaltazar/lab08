@@ -13,7 +13,7 @@ class QuestionInline(admin.TabularInline):
 
 @admin.register(Quiz)
 class QuizAdmin(admin.ModelAdmin):
-    list_display = ['title', 'created_at']
+    list_display = ['title', 'created_at', 'duration'] # Añadimos 'duration'
     search_fields = ['title', 'description']
     inlines = [QuestionInline]
 

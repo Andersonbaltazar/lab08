@@ -10,11 +10,12 @@ class Quiz(models.Model):
     tags = models.ManyToManyField(Tag, related_name='quizzes', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+    duration = models.IntegerField(null=True, blank=True, help_text="Duración del quiz en segundos (opcional)")
+
     class Meta:
         verbose_name_plural = "quizzes"
         ordering = ['-created_at']
-    
+
     def __str__(self):
         return self.title
 
@@ -24,7 +25,7 @@ class Question(models.Model):
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
     def __str__(self):
         return self.text
 
@@ -36,6 +37,6 @@ class Choice(models.Model):
     is_correct = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
     def __str__(self):
         return self.text
