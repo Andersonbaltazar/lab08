@@ -19,8 +19,8 @@ class QuizAdmin(admin.ModelAdmin):
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ['text', 'quiz']
-    list_filter = ['quiz']
+    list_display = ['text', 'quiz', 'question_type'] # Añadimos 'question_type' a la lista
+    list_filter = ['quiz', 'question_type'] # Añadimos el filtro por tipo de pregunta
     search_fields = ['text']
     inlines = [ChoiceInline]
 
