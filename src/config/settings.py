@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'quizzes',
     'users',
     'categories',
+    'analytics',
 ]
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
