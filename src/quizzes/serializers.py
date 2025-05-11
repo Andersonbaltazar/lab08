@@ -4,24 +4,24 @@ from categories.models import Category, Tag
 from categories.serializers import CategorySerializer, TagSerializer
 
 class ChoiceSerializer(serializers.ModelSerializer):
-    """Serializer for the Choice model"""
+    """Serializer para el modelo Choice"""
     class Meta:
         model = Choice
         fields = ['id', 'question', 'text', 'is_correct']
 
 class QuestionSerializer(serializers.ModelSerializer):
-    """Serializer for the Question model"""
+    """Serializer para el modelo Question"""
     class Meta:
         model = Question
-        fields = ['id', 'quiz', 'text']
+        fields = ['id', 'quiz', 'text', 'question_type', 'correct_answer'] # Incluimos correct_answer
 
 class QuestionDetailSerializer(serializers.ModelSerializer):
-    """Serializer for Question model with nested choices"""
+    """Serializer para el modelo Question con opciones anidadas"""
     choices = ChoiceSerializer(many=True, read_only=True)
 
     class Meta:
         model = Question
-        fields = ['id', 'quiz', 'text', 'choices']
+        fields = ['id', 'quiz', 'text', 'question_type', 'choices', 'correct_answer'] # Incluimos correct_answer
 
 class QuizSerializer(serializers.ModelSerializer):
     category = CategorySerializer(read_only=True)
@@ -51,6 +51,7 @@ class QuizDetailSerializer(serializers.ModelSerializer):
         return QuestionDetailSerializer(questions, many=True).data
 
 class AnswerSerializer(serializers.Serializer):
-    """Serializer for answer validation"""
+    """Serializer para la validación de respuestas"""
     question_id = serializers.IntegerField()
-    choice_id = serializers.IntegerField()
+    choice_id = serializers.IntegerField(allow_null=True, default=None) #Permite nulos para short_answer
+    short_answer = serializers.CharField(allow_blank=True, required=False, default=None) # Nuevo campo para respuesta corta
