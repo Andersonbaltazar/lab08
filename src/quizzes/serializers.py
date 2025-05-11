@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Quiz, Question, Choice
+from categories.models import Category, Tag
+from categories.serializers import CategorySerializer, TagSerializer
 
 
 class ChoiceSerializer(serializers.ModelSerializer):
@@ -25,19 +27,28 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
         fields = ['id', 'quiz', 'text', 'choices']
 
 class QuizSerializer(serializers.ModelSerializer):
-    """Serializer for the Quiz model"""
+    category = CategorySerializer(read_only=True)
+    category_id = serializers.PrimaryKeyRelatedField(
+        queryset=Category.objects.all(), source='category', write_only=True
+    )
+    tags = TagSerializer(many=True, read_only=True)
+    tag_ids = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=Tag.objects.all(), source='tags', write_only=True
+    )
+
     class Meta:
         model = Quiz
-        fields = ['id', 'title', 'description', 'created_at']
+        fields = ['id', 'title', 'description', 'category', 'category_id', 'tags', 'tag_ids', 'created_at']
 
 
 class QuizDetailSerializer(serializers.ModelSerializer):
-    """Serializer for Quiz model with nested questions and choices"""
     questions = serializers.SerializerMethodField()
-    
+    category = CategorySerializer(read_only=True)
+    tags = TagSerializer(many=True, read_only=True)
+
     class Meta:
         model = Quiz
-        fields = ['id', 'title', 'description', 'created_at', 'questions']
+        fields = ['id', 'title', 'description', 'created_at', 'category', 'tags', 'questions']
     
     def get_questions(self, obj):
         questions = obj.questions.all()
