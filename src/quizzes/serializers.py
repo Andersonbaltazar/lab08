@@ -21,7 +21,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 class QuestionDetailSerializer(serializers.ModelSerializer):
     """Serializer for Question model with nested choices"""
     choices = ChoiceSerializer(many=True, read_only=True)
-    
+
     class Meta:
         model = Question
         fields = ['id', 'quiz', 'text', 'choices']
@@ -38,11 +38,16 @@ class QuizSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Quiz
+<<<<<<< HEAD
         fields = ['id', 'title', 'description', 'category', 'category_id', 'tags', 'tag_ids', 'created_at']
+=======
+        fields = ['id', 'title', 'description', 'created_at', ''] # Añadimos 'duration'
+>>>>>>> 977178c5200dbd0e98256bf961498dd3c2ec5462
 
 
 class QuizDetailSerializer(serializers.ModelSerializer):
     questions = serializers.SerializerMethodField()
+<<<<<<< HEAD
     category = CategorySerializer(read_only=True)
     tags = TagSerializer(many=True, read_only=True)
 
@@ -50,6 +55,13 @@ class QuizDetailSerializer(serializers.ModelSerializer):
         model = Quiz
         fields = ['id', 'title', 'description', 'created_at', 'category', 'tags', 'questions']
     
+=======
+
+    class Meta:
+        model = Quiz
+        fields = ['id', 'title', 'description', 'created_at', 'duration', 'questions'] # Añadimos 'duration'
+
+>>>>>>> 977178c5200dbd0e98256bf961498dd3c2ec5462
     def get_questions(self, obj):
         questions = obj.questions.all()
         return QuestionDetailSerializer(questions, many=True).data
