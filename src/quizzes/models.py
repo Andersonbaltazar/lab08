@@ -10,7 +10,7 @@ class Quiz(models.Model):
     tags = models.ManyToManyField(Tag, related_name='quizzes', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    duration = models.IntegerField(null=True, blank=True, help_text="Duración del quiz en segundos (opcional)")
+    duration = models.IntegerField(null=True, blank=True, help_text="Duración del quiz en minutos")
 
     class Meta:
         verbose_name_plural = "quizzes"

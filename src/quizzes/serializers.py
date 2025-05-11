@@ -47,7 +47,7 @@ class QuizDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Quiz
-        fields = ['id', 'title', 'description', 'duration', 'created_at', 'category', 'tags', 'questions']
+        fields = ['id', 'title', 'description','duration', 'created_at', 'category', 'tags', 'questions']
 
     def get_questions(self, obj):
         questions = obj.questions.all()
