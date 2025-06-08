@@ -5,7 +5,7 @@ from .models import Serie, Category
 class SerieSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Serie
-        fields = ('id', 'name', 'release_date', 'rating', 'category')
+        fields = ('id', 'name', 'release_date', 'rating', 'image', 'category')
 
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
