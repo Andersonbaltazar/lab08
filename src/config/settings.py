@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'quizzes',
+    'series',  # Your app for series management
 ]
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
