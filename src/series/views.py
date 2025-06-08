@@ -1,3 +1,13 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .models import Serie, Category
+from .serializers import SerieSerializer, CategorySerializer
 
-# Create your views here.
+
+class SerieViewSet(viewsets.ModelViewSet):
+	queryset = Serie.objects.all().order_by('-release_date')
+	serializer_class = SerieSerializer
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+	queryset = Category.objects.all().order_by('description')
+	serializer_class = CategorySerializer
